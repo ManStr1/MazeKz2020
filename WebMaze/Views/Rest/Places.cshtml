@@ -1,0 +1,23 @@
+﻿@using WebMaze.Models.Rest
+@model List<RestPlaceViewModel>
+
+<table>
+    <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            Description
+        </td>
+    </tr>
+    @foreach (var place in Model) {
+        <tr>
+            <td>
+                @place.PlaceName
+            </td>
+            <td>
+                @place.PlaceDescription
+            </td>
+        </tr>
+    }
+</table>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebMaze.DbStuff.Model;
 using WebMaze.DbStuff.Model.Police;
+using WebMaze.DbStuff.Model.Rest;
 
 namespace WebMaze.DbStuff
 {
@@ -25,6 +26,8 @@ namespace WebMaze.DbStuff
         public DbSet<BusRoute> BusRoute { get; set; }
 
         public DbSet<UserTask> UserTasks { get; set; }
+
+        public DbSet<RestPlace> RestPlace { get; set; }
 
         public WebMazeContext(DbContextOptions dbContext) : base(dbContext) { }
 
