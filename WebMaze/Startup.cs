@@ -97,6 +97,9 @@ namespace WebMaze
             configurationExpression.CreateMap<RestPlace, RestPlaceViewModel>();
             configurationExpression.CreateMap<RestPlaceViewModel, RestPlace>();
 
+            configurationExpression.CreateMap<RestCategory, RestCategoryViewModel>();
+            configurationExpression.CreateMap<RestCategoryViewModel, RestCategory>();
+
             var mapperConfiguration = new MapperConfiguration(configurationExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(s => mapper);
@@ -123,6 +126,10 @@ namespace WebMaze
             services.AddScoped(s => new UserTaskRepository(s.GetService<WebMazeContext>()));
 
             services.AddScoped(s => new RestPlaceRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new RestCategoryRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new RestPhotoRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new RestCommentRepository(s.GetService<WebMazeContext>()));
+            services.AddScoped(s => new RestEventRepository(s.GetService<WebMazeContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

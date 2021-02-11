@@ -29,6 +29,14 @@ namespace WebMaze.DbStuff
 
         public DbSet<RestPlace> RestPlace { get; set; }
 
+        public DbSet<RestCategory> RestCategory { get; set; }
+
+        public DbSet<RestPhoto> RestPhoto { get; set; }
+
+        public DbSet<RestComment> RestComment { get; set; }
+
+        public DbSet<RestEvent> RestEvent { get; set; }
+
         public WebMazeContext(DbContextOptions dbContext) : base(dbContext) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -42,6 +50,18 @@ namespace WebMaze.DbStuff
             modelBuilder.Entity<CitizenUser>()
                 .HasMany(citizen => citizen.Adresses)
                 .WithOne(adress => adress.Owner);
+
+            modelBuilder.Entity<RestPlace>()
+                .HasMany(place => place.RestPhotos)
+                .WithOne(photos => photos.Place);
+
+            modelBuilder.Entity<RestPlace>()
+                .HasMany(place => place.RestComments)
+                .WithOne(comments => comments.Place);
+
+            modelBuilder.Entity<RestPlace>()
+                .HasMany(place => place.RestEvents)
+                .WithOne(events => events.Place);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMaze.DbStuff;
 
 namespace WebMaze.Migrations
 {
     [DbContext(typeof(WebMazeContext))]
-    partial class WebMazeContextModelSnapshot : ModelSnapshot
+    [Migration("20210203102740_AddLinkPlaceCommentAndAddComment")]
+    partial class AddLinkPlaceCommentAndAddComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,35 +281,6 @@ namespace WebMaze.Migrations
                     b.ToTable("RestComment");
                 });
 
-            modelBuilder.Entity("WebMaze.DbStuff.Model.Rest.RestEvent", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("EventDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EventEndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EventName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EventStartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("PlaceId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlaceId");
-
-                    b.ToTable("RestEvent");
-                });
-
             modelBuilder.Entity("WebMaze.DbStuff.Model.Rest.RestPhoto", b =>
                 {
                     b.Property<long>("Id")
@@ -443,15 +416,6 @@ namespace WebMaze.Migrations
                     b.Navigation("Place");
                 });
 
-            modelBuilder.Entity("WebMaze.DbStuff.Model.Rest.RestEvent", b =>
-                {
-                    b.HasOne("WebMaze.DbStuff.Model.Rest.RestPlace", "Place")
-                        .WithMany("RestEvents")
-                        .HasForeignKey("PlaceId");
-
-                    b.Navigation("Place");
-                });
-
             modelBuilder.Entity("WebMaze.DbStuff.Model.Rest.RestPhoto", b =>
                 {
                     b.HasOne("WebMaze.DbStuff.Model.Rest.RestPlace", "Place")
@@ -488,8 +452,6 @@ namespace WebMaze.Migrations
             modelBuilder.Entity("WebMaze.DbStuff.Model.Rest.RestPlace", b =>
                 {
                     b.Navigation("RestComments");
-
-                    b.Navigation("RestEvents");
 
                     b.Navigation("RestPhotos");
                 });

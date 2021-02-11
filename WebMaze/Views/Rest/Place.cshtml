@@ -1,0 +1,33 @@
+﻿@using WebMaze.Models.Rest
+@model RestPlaceViewModel
+
+<div>
+    <h2>Страница места</h2>
+
+    <div>
+        Название: @Model.PlaceName
+    </div>
+
+    <div>
+        Моя категория: @Model.Category.CategoryName
+    </div>
+    
+
+    <form action="@Url.Action("Place","Rest")" method="post">
+        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.PlaceName)
+        @Html.HiddenFor(x => x.Category.Id)
+        <div>
+            id: @Model.Id
+        </div>
+        <div>
+            Name: @Model.PlaceName
+        </div>
+        <div>
+            Description: @Html.TextBoxFor(x => x.PlaceDescription)
+        </div>
+        <div>
+            <input type="submit" value="Обновить" />
+        </div>
+    </form>
+</div>

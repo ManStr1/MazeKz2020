@@ -1,0 +1,37 @@
+﻿@using WebMaze.Models.Rest
+@model List<RestHomeViewModel>
+
+<div>
+    <h2>Главная страница</h2>
+    <div>
+        Категории:
+    @foreach (var category in Model[0].Categories) {
+        <div>
+            @category
+        </div>
+    }
+    </div>
+
+    @foreach (var place in Model) {
+        <div>
+            Название места: @place.PlaceName
+        </div>
+        <div>
+            Мое описание: @place.PlaceDescription
+        </div>
+        <div>
+            Мое фото:
+            <div class="image-container">
+                <img src="~/image/Rest/@place.RestPhotoUrl" />
+            </div>
+        </div>
+        <form action="@Url.Action("Place", "Rest")" method="post">
+            @Html.HiddenFor(x => place.Id);
+            <div>
+                <input type="submit" value="Купить" />
+            </div>
+        </form>
+
+    }
+
+</div>
