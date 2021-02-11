@@ -1,18 +1,18 @@
 ﻿@using WebMaze.Models.Rest
-@model List<RestHomeViewModel>
+@model RestHomeViewModel
 
 <div>
     <h2>Главная страница</h2>
     <div>
         Категории:
-    @foreach (var category in Model[0].Categories) {
+    @foreach (var category in Model.Categories) {
         <div>
             @category
         </div>
     }
     </div>
 
-    @foreach (var place in Model) {
+    @foreach (var place in Model.Places) {
         <div>
             Название места: @place.PlaceName
         </div>

@@ -82,39 +82,36 @@ namespace WebMaze.Controllers {
 
         [HttpGet]
         public IActionResult Home() {
-            var viewModels = new List<RestHomeViewModel>();
-            var dbModels = restPlaceRepository.GetAll();
-            var categories = restCategoryRepository.GetCategoryWithPlace();
+            var viewModel = new RestHomeViewModel();
+            viewModel.Places = new List<RestViewModel>();
+            viewModel.Categories = new List<string>();
+            var placeDbModels = restPlaceRepository.GetAll();
+            var categoriesBdModels = restCategoryRepository.GetCategoryWithPlace();
 
-            foreach (var model in dbModels) {
-
-                var view = new RestHomeViewModel() {
-                    Id = model.Id.ToString(),
-                    PlaceName = model.PlaceName,
-                    PlaceDescription = model.PlaceDescription,
-                    RestPhotoUrl = model.RestPhotos[0].PhotoUrl
-                };
-
-                view.Categories = new List<string>();
-                foreach (var category in categories) {
-                    view.Categories.Add(category.CategoryName);
-                }
-
-                viewModels.Add(view);
+            foreach (var place in placeDbModels) {
+                var placeViewModel = mapper.Map<RestViewModel>(place);
+                viewModel.Places.Add(placeViewModel);
             }
 
-            return View(viewModels);
+            foreach (var category in categoriesBdModels) {
+                var categoryViewModel = category.CategoryName;
+                viewModel.Categories.Add(categoryViewModel);
+            }
+
+            return View(viewModel);
         }
 
-        //[HttpPost]
-        //public IActionResult Home(long id) {
+        [HttpGet]
+        public IActionResult Place(long id) {
+            var dbModel = restPlaceRepository.Get(id);
+            var viewModel = mapper.Map<RestPlaceViewModel>(dbModel);
 
-        //    return RedirectToAction("Place", "Rest", 0);
-        //}
+            return View(viewModel);
+        }
 
         [HttpPost]
         public IActionResult Place(RestPlaceViewModel place) {
-            var dbModel = restPlaceRepository.Get(Convert.ToInt64(place.Id));
+            var dbModel = restPlaceRepository.Get(place.Id);
             var viewModel = mapper.Map<RestPlaceViewModel>(dbModel);
 
             return View(viewModel);

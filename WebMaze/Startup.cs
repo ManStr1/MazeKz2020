@@ -97,6 +97,10 @@ namespace WebMaze
             configurationExpression.CreateMap<RestPlace, RestPlaceViewModel>();
             configurationExpression.CreateMap<RestPlaceViewModel, RestPlace>();
 
+            configurationExpression.CreateMap<RestPlace, RestViewModel>()
+                .ForMember(dest => dest.RestPhotoUrl, opt => opt.MapFrom(u => u.RestPhotos[0].PhotoUrl));
+            configurationExpression.CreateMap<RestHomeViewModel, RestPlace>();
+
             configurationExpression.CreateMap<RestCategory, RestCategoryViewModel>();
             configurationExpression.CreateMap<RestCategoryViewModel, RestCategory>();
 
